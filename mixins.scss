@@ -1,0 +1,108 @@
+// webp mixin / requires modernizr
+
+@mixin webp-background(
+  $img,
+  $color: transparent,
+  $repeat: repeat,
+  $attachment: scroll,
+  $position: center,
+  $size: auto,
+  $type: ".png"
+) {
+  background: $color url("/frontend/img/#{$img}.webp") $repeat $attachment
+    $position / $size;
+  .no-webp & {
+    background-image: url("/frontend/img/#{$img}#{$type}");
+  }
+}
+
+// basic usage -- @include webp-background($img: 'my-image.jpg');
+
+// ---------------------------------------------------------------------------------------
+
+// absolute center
+
+@mixin absolute-center($position: horizontal) {
+  position: absolute;
+
+  @if ($position == "vertical") {
+    top: 50%;
+    transform: translateY(-50%);
+  } @else if ($position == "horizontal") {
+    left: 50%;
+    transform: translate(-50%);
+  } @else if ($position == "both") {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// basic usage -- @include absolute-center($position: "vertical")
+
+// ---------------------------------------------------------------------------------------
+
+// center block element
+
+@mixin center-block {
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+// basic usage -- @include center-block()
+
+// ---------------------------------------------------------------------------------------
+
+//
+
+@mixin pseudo($content: "", $position: absolute, $display: block) {
+  content: $content;
+  position: $position;
+  display: $display;
+}
+
+// basic usage -- @include pseudo($display: "inline-block")
+
+// ---------------------------------------------------------------------------------------
+
+// truncate text
+
+@mixin truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// basic usage -- @include truncate(500px)
+
+// ---------------------------------------------------------------------------------------
+
+// media queries / requires $breakpoints variable map
+
+@mixin media-query($width, $type: max) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+// basic usage -- @include(mobile)
+
+// ---------------------------------------------------------------------------------------
+
+// absolute position
+
+@mixin abs-pos($top: auto, $right: auto, $bottom: auto, $left: auto) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+// basic usage @include abs-pos()
