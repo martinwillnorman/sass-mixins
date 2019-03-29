@@ -107,6 +107,9 @@
 
 // basic usage @include abs-pos()
 
+// ---------------------------------------------------------------------------------------
+
+// responsive video embed
 
 @mixin res-embed($container-name: .embed-container) {
   
@@ -128,3 +131,4 @@
   
 }
 
+// basic usage @include res-embed()
